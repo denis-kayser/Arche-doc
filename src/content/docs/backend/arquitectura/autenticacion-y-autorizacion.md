@@ -5,7 +5,7 @@ sidebar:
   order: 5
 ---
 
-Esta página documenta el **mecanismo** que usan todos los dominios protegidos (`users`, `sessions`, y los que se agreguen después). Los endpoints concretos que *emiten* los tokens están documentados en [Módulos → Auth](/modulos/auth/vision-general/).
+Esta página documenta el **mecanismo** que usan todos los dominios protegidos (`users`, `sessions`, y los que se agreguen después). Los endpoints concretos que *emiten* los tokens están documentados en [Módulos → Auth](/backend/modulos/auth/vision-general/).
 
 ## Dos tipos de JWT
 

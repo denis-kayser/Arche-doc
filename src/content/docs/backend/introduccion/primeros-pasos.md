@@ -36,6 +36,6 @@ npm install
 npm run dev
 ```
 
-El servidor queda escuchando en `http://localhost:5000` (o el puerto de `API_PORT`), con Socket.IO montado sobre el mismo `http.Server` (ver [Websockets](/referencia/websockets/)).
+El servidor queda escuchando en `http://localhost:5000` (o el puerto de `API_PORT`), con Socket.IO montado sobre el mismo `http.Server` (ver [Websockets](/backend/referencia/websockets/)).
 
 Al arrancar, el proceso también limpia cualquier sesión que haya quedado marcada como activa de un arranque anterior (`closeAllStaleSessionsModel`) — el store de sockets en memoria siempre empieza vacío, así que esas sesiones son necesariamente "fantasma".

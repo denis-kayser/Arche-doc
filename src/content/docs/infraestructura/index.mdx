@@ -1,0 +1,43 @@
+---
+title: Infraestructura
+description: Documentación de infraestructura y despliegue de Arche.
+---
+
+Arche corre sobre una única instancia **EC2 de AWS**, sin separación todavía entre entornos: frontend, backend y base de datos comparten el mismo servidor.
+
+## Resumen
+
+| Pieza | Dónde corre |
+|---|---|
+| Frontend (Next.js) | Misma instancia EC2, puerto `3000` |
+| Backend (Node.js) | Misma instancia EC2, puerto `5000` |
+| Base de datos (PostgreSQL) | Misma instancia EC2 |
+| Reverse proxy / HTTPS | Nginx + Certbot (Let's Encrypt), en la misma instancia |
+
+## Dominios
+
+- **`arche.pe`** — dominio principal (producción, aún no en uso activo).
+- **`qa.arche.pe`** — único entorno activo hoy. No hay equipo de QA todavía; en la práctica funciona como ambiente de desarrollo compartido.
+
+## Entornos y ramas
+
+No existe separación formal de entornos (dev/staging/producción) — todo el trabajo apunta a `qa.arche.pe`. Tampoco hay una convención de branching fija: cada desarrollador crea su propia rama según la funcionalidad que está implementando.
+
+## CI/CD
+
+En configuración, tanto para frontend como para backend. Hoy el despliegue es manual (ver [Despliegue](/infraestructura/despliegue/)). El flujo objetivo (push → GitHub Actions → build → deploy) está documentado en [Arquitectura](/arquitectura/).
+
+## Secretos y configuración
+
+Se gestionan únicamente con archivos `.env` en el servidor — no hay gestor de secretos (Vault, AWS Secrets Manager, etc.) todavía.
+
+## Monitoreo y logs
+
+No implementado todavía. Está planeado a futuro.
+
+## Guías paso a paso
+
+1. [Acceso al servidor](/infraestructura/acceso-al-servidor/) — SSH y actualización de paquetes.
+2. [Instalación de dependencias](/infraestructura/instalacion-de-dependencias/) — Git, PM2, Nginx.
+3. [Configuración de Nginx](/infraestructura/configuracion-de-nginx/) — reverse proxy, HTTPS, WebSockets.
+4. [Despliegue](/infraestructura/despliegue/) — conexión SSH con GitHub, PM2, comandos básicos.

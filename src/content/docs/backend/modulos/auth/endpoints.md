@@ -112,7 +112,7 @@ Inicia sesión con email y contraseña.
 A diferencia del resto de la API, `signInController.Credentials` devuelve **status HTTP 200 tanto en éxito como en fallo lógico** — el `ok:false` va en el body, no en el status. Hay que revisar `ok`/`code`, no solo el status code.
 :::
 
-`accessToken` es el JWT de sesión firmado con el id real del usuario — ver [JWT y tokens](/modulos/auth/jwt-y-tokens/).
+`accessToken` es el JWT de sesión firmado con el id real del usuario — ver [JWT y tokens](/backend/modulos/auth/jwt-y-tokens/).
 
 ---
 
@@ -179,7 +179,7 @@ Emite el **token de aplicación** (sin identidad de usuario).
 }
 ```
 
-Ver la diferencia entre este token y el de sesión de usuario en [JWT y tokens](/modulos/auth/jwt-y-tokens/).
+Ver la diferencia entre este token y el de sesión de usuario en [JWT y tokens](/backend/modulos/auth/jwt-y-tokens/).
 
 ---
 

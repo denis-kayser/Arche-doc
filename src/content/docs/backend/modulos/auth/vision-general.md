@@ -12,7 +12,7 @@ El dominio **auth** resuelve tres cosas: registrar usuarios, autenticarlos (con 
 | Capa | Archivo | Contiene |
 |---|---|---|
 | Router | `routers/auth/authRouter.ts` | Las 6 rutas de este dominio, todas bajo `authRateLimiter` |
-| Router | `routers/token/tokenRouter.ts` | `POST /auth/token` (vive en su propia carpeta porque no genera identidad, ver [JWT y tokens](/modulos/auth/jwt-y-tokens/)) |
+| Router | `routers/token/tokenRouter.ts` | `POST /auth/token` (vive en su propia carpeta porque no genera identidad, ver [JWT y tokens](/backend/modulos/auth/jwt-y-tokens/)) |
 | Controller | `controllers/auth/signInController.ts` | `Credentials`, `Google` |
 | Controller | `controllers/auth/signUpController.ts` | `Credentials`, `Google` |
 | Controller | `controllers/auth/identifyUserController.ts` | Búsqueda de usuario por email |
@@ -29,6 +29,6 @@ Ningún endpoint de `auth` pasa por `authMiddleware` — están montados en `app
 
 ## Dónde vive cada regla de negocio
 
-Siguiendo la arquitectura del proyecto ([ver Capas](/arquitectura/capas/)), el Model de este dominio solo hace `SELECT`/`INSERT` — toda decisión (¿la contraseña es correcta?, ¿el email ya existe?, ¿qué token generar?) vive en `authService.ts`. Esto no siempre fue así: originalmente `authModel.ts` comparaba contraseñas con `bcrypt` y decidía códigos de error — se refactorizó para que el Model solo consulte datos.
+Siguiendo la arquitectura del proyecto ([ver Capas](/backend/arquitectura/capas/)), el Model de este dominio solo hace `SELECT`/`INSERT` — toda decisión (¿la contraseña es correcta?, ¿el email ya existe?, ¿qué token generar?) vive en `authService.ts`. Esto no siempre fue así: originalmente `authModel.ts` comparaba contraseñas con `bcrypt` y decidía códigos de error — se refactorizó para que el Model solo consulte datos.
 
-Ver el detalle endpoint por endpoint en [Endpoints](/modulos/auth/endpoints/), y cómo funciona el JWT que emite el login en [JWT y tokens](/modulos/auth/jwt-y-tokens/).
+Ver el detalle endpoint por endpoint en [Endpoints](/backend/modulos/auth/endpoints/), y cómo funciona el JWT que emite el login en [JWT y tokens](/backend/modulos/auth/jwt-y-tokens/).

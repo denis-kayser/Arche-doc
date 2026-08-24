@@ -17,7 +17,7 @@ export const io = new Server(httpServer, { cors: { origin: '*', methods: ['GET',
 setupSocket(io)
 ```
 
-`cors: { origin: '*' }` es independiente del CORS de la API REST (que hoy no tiene ningún middleware `cors()` — ver [Stack y dependencias](/referencia/stack-y-dependencias/)).
+`cors: { origin: '*' }` es independiente del CORS de la API REST (que hoy no tiene ningún middleware `cors()` — ver [Stack y dependencias](/backend/referencia/stack-y-dependencias/)).
 
 ## Cómo se identifica quién está conectado
 
@@ -43,12 +43,12 @@ io.on('connection', (socket) => {
 })
 ```
 
-Dos cosas pasan ahí: se guarda `userId → socket.id` en memoria (`socketStore`), y se inserta una fila en la tabla `sessions` (vía la función SQL `ft_create_session`, ver [Base de datos](/arquitectura/base-de-datos/)) — **esa fila es lo que después aparece listado como "sesión activa"** en `GET /sessions`.
+Dos cosas pasan ahí: se guarda `userId → socket.id` en memoria (`socketStore`), y se inserta una fila en la tabla `sessions` (vía la función SQL `ft_create_session`, ver [Base de datos](/backend/arquitectura/base-de-datos/)) — **esa fila es lo que después aparece listado como "sesión activa"** en `GET /sessions`.
 
 `socketStore` (`src/socket/socketStore.ts`) es un `Map<userId, Set<socketId>>` — un usuario puede tener varios sockets a la vez (varias pestañas/dispositivos). Vive solo en memoria del proceso: si el servidor se reinicia, se vacía, por eso `server.ts` limpia al arrancar cualquier sesión que haya quedado marcada activa en la BD de un arranque anterior (son "fantasma", su socket ya no existe).
 
 :::caution[La identidad del socket no está verificada]
-`socket.handshake.auth.userId` es un valor que el cliente simplemente declara al conectar — no se compara contra ningún JWT ni sesión real, a diferencia de las rutas HTTP (ver [Autenticación y autorización](/arquitectura/autenticacion-y-autorizacion/), que sí se corrigió). Cualquiera que abra un socket directo contra el backend puede declarar el `userId` que quiera y aparecer como si esa persona estuviera conectada. No está arreglado todavía.
+`socket.handshake.auth.userId` es un valor que el cliente simplemente declara al conectar — no se compara contra ningún JWT ni sesión real, a diferencia de las rutas HTTP (ver [Autenticación y autorización](/backend/arquitectura/autenticacion-y-autorizacion/), que sí se corrigió). Cualquiera que abra un socket directo contra el backend puede declarar el `userId` que quiera y aparecer como si esa persona estuviera conectada. No está arreglado todavía.
 :::
 
 ## Catálogo completo de eventos
@@ -68,9 +68,9 @@ Dos cosas pasan ahí: se guarda `userId → socket.id` en memoria (`socketStore`
 
 Este es el recorrido de punta a punta cuando alguien hace clic en "cerrar sesión" sobre el dispositivo de otro usuario, en la página `mantenimientos/sesiones`:
 
-1. **Frontend** — `closeSession(id)` (`action/sessions/sessions.ts`) llama `DELETE /sessions/:id`, con el `accessToken` de quien hace clic como `Authorization` (ver [Autenticación y autorización](/arquitectura/autenticacion-y-autorizacion/)).
+1. **Frontend** — `closeSession(id)` (`action/sessions/sessions.ts`) llama `DELETE /sessions/:id`, con el `accessToken` de quien hace clic como `Authorization` (ver [Autenticación y autorización](/backend/arquitectura/autenticacion-y-autorizacion/)).
 2. **Backend, HTTP** — `sessionController.close` → `sessionService.close(sessionId, requesterId)`.
-3. **Backend, permisos** — `sessionService.close` busca la sesión (`getSessionByIdModel`), y llama `assertCanManage(requesterId, session.userId)`: si no es tu propia sesión, chequea que tu rol pueda gestionar el rol del dueño (ver [Capas](/arquitectura/capas/) y `util/roleHierarchy.ts`). Si no tiene permiso, corta acá con 403 y nada de lo siguiente ocurre.
+3. **Backend, permisos** — `sessionService.close` busca la sesión (`getSessionByIdModel`), y llama `assertCanManage(requesterId, session.userId)`: si no es tu propia sesión, chequea que tu rol pueda gestionar el rol del dueño (ver [Capas](/backend/arquitectura/capas/) y `util/roleHierarchy.ts`). Si no tiene permiso, corta acá con 403 y nada de lo siguiente ocurre.
 4. **Backend, WebSocket** — `disconnectOneSession(userId, socketId)` (`service/socket/socketService.ts`):
    - Busca el socket exacto en `socketStore`.
    - Le manda **`force_logout`** con `{ reason: 'DEVICE_TERMINATED' }`, **solo a ese socket** (nadie más lo recibe).

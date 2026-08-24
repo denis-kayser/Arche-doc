@@ -81,4 +81,4 @@ export const signInModel = {
 
 ## Tipos que cruzan capas
 
-Cuando un tipo describe la forma de un dato que pasa de una capa a otra (lo que el Model le devuelve al Service, por ejemplo), vive en `src/types/<dominio>/`, con nombre — nunca declarado inline dentro del Model o el Service. Ver [Estructura de carpetas](/arquitectura/estructura-carpetas/).
+Cuando un tipo describe la forma de un dato que pasa de una capa a otra (lo que el Model le devuelve al Service, por ejemplo), vive en `src/types/<dominio>/`, con nombre — nunca declarado inline dentro del Model o el Service. Ver [Estructura de carpetas](/backend/arquitectura/estructura-carpetas/).

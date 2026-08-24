@@ -10,12 +10,12 @@ sidebar:
 | Paquete | Rol en el proyecto |
 |---|---|
 | `express` | Framework HTTP — routers, middlewares, `app.ts` |
-| `@prisma/client` + `@prisma/adapter-pg` | Cliente de base de datos tipado (ver [Base de datos](/arquitectura/base-de-datos/)) |
+| `@prisma/client` + `@prisma/adapter-pg` | Cliente de base de datos tipado (ver [Base de datos](/backend/arquitectura/base-de-datos/)) |
 | `pg` | Driver nativo de PostgreSQL, usado por el adapter de Prisma |
-| `jsonwebtoken` | Firma/verificación de los dos tipos de JWT (ver [Autenticación y autorización](/arquitectura/autenticacion-y-autorizacion/)) |
+| `jsonwebtoken` | Firma/verificación de los dos tipos de JWT (ver [Autenticación y autorización](/backend/arquitectura/autenticacion-y-autorizacion/)) |
 | `bcryptjs` | Hash y comparación de contraseñas (`signUpService`, `signInService`) |
 | `zod` | Esquemas de validación de entrada, usados por `middleware/validate.ts` |
-| `socket.io` | Servidor de WebSockets — sesiones activas en tiempo real (ver [Websockets](/referencia/websockets/)) |
+| `socket.io` | Servidor de WebSockets — sesiones activas en tiempo real (ver [Websockets](/backend/referencia/websockets/)) |
 | `helmet` | Cabeceras HTTP de seguridad, montado global en `app.ts` |
 | `morgan` | Logging de requests en desarrollo (`app.use(morgan('dev'))`) |
 | `express-rate-limit` | Rate limiting en las rutas de `auth` (`authRateLimiter`) |

@@ -5,7 +5,7 @@ sidebar:
   order: 3
 ---
 
-Esta página cubre **qué genera cada endpoint de auth**. Para cómo el resto de la API *verifica* esos tokens (`authMiddleware`, `requireIdentity`, `requireRole`), ver [Autenticación y autorización](/arquitectura/autenticacion-y-autorizacion/).
+Esta página cubre **qué genera cada endpoint de auth**. Para cómo el resto de la API *verifica* esos tokens (`authMiddleware`, `requireIdentity`, `requireRole`), ver [Autenticación y autorización](/backend/arquitectura/autenticacion-y-autorizacion/).
 
 ## `generateTokenService()` — token de aplicación
 

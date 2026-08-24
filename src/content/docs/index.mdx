@@ -1,12 +1,37 @@
 ---
-title: Arche API
-description: Documentación técnica del backend de Arche.
+title: Arche
+description: Documentación técnica de Arche.
 template: splash
 hero:
-  tagline: Arche — API REST en Express + TypeScript, con Prisma/PostgreSQL, JWT y Socket.IO.
-  actions:
-    - text: Introducción
-      link: /introduccion/introduccion/
-      icon: right-arrow
-      variant: primary
+  tagline: Documentación técnica de Arche — frontend, backend, base de datos e infraestructura.
 ---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+	<LinkCard
+		title="FrontEnd"
+		href="/frontend/"
+		description="Documentación del frontend de Arche."
+	/>
+	<LinkCard
+		title="Backend"
+		href="/backend/"
+		description="API REST en Express + TypeScript, con Prisma/PostgreSQL, JWT y Socket.IO."
+	/>
+	<LinkCard
+		title="Base de datos"
+		href="/base-de-datos/"
+		description="Modelo de datos y funciones SQL de Arche."
+	/>
+	<LinkCard
+		title="Infraestructura"
+		href="/infraestructura/"
+		description="Despliegue e infraestructura de Arche."
+	/>
+	<LinkCard
+		title="Arquitectura"
+		href="/arquitectura/"
+		description="Cómo se relacionan frontend, backend, base de datos e infraestructura."
+	/>
+</CardGrid>

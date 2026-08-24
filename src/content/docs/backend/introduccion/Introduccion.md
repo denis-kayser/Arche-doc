@@ -15,9 +15,9 @@ sidebar:
 | **TypeScript** | Superset tipado de JS | Todo el código fuente |
 | **Prisma 7** + `@prisma/adapter-pg` | Cliente de base de datos tipado | Lecturas (`.findFirst/findMany/findUnique`) y ejecución de SQL crudo/funciones |
 | **PostgreSQL** | Base de datos | Persistencia. Buena parte de las reglas de escritura viven en funciones SQL (`ft_*`), no en Prisma |
-| **jsonwebtoken** | Firma/verificación de JWT | Autenticación de la API (ver [Autenticación y autorización](/arquitectura/autenticacion-y-autorizacion/)) |
+| **jsonwebtoken** | Firma/verificación de JWT | Autenticación de la API (ver [Autenticación y autorización](/backend/arquitectura/autenticacion-y-autorizacion/)) |
 | **bcryptjs** | Hash de contraseñas | Registro y login con credenciales |
-| **Socket.IO** | WebSockets | Sesiones activas en tiempo real (ver [Websockets](/referencia/websockets/)) |
+| **Socket.IO** | WebSockets | Sesiones activas en tiempo real (ver [Websockets](/backend/referencia/websockets/)) |
 | **Zod** | Validación de esquemas | Valida el body de las peticiones antes de llegar al Controller |
 | **express-rate-limit**, **helmet** | Seguridad HTTP | Rate limiting en rutas de auth, cabeceras de seguridad |
 

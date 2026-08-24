@@ -25,7 +25,7 @@ export const prisma: PrismaClient = hasDatabaseUrl
     })
 ```
 
-Si `DATABASE_URL` no está configurada, no se crea un cliente roto en silencio: se arma un `Proxy` que lanza el error `"No se puede conectar a la base de datos"` apenas algo intenta usar `prisma.lo-que-sea`. Ese mensaje es la constante `DB_CONNECTION_ERROR_MESSAGE`, y es lo que `util/errors.ts` reconoce para clasificar el error como `DATABASE_CONNECTION_ERROR` (ver [Manejo de errores](/arquitectura/manejo-de-errores/)).
+Si `DATABASE_URL` no está configurada, no se crea un cliente roto en silencio: se arma un `Proxy` que lanza el error `"No se puede conectar a la base de datos"` apenas algo intenta usar `prisma.lo-que-sea`. Ese mensaje es la constante `DB_CONNECTION_ERROR_MESSAGE`, y es lo que `util/errors.ts` reconoce para clasificar el error como `DATABASE_CONNECTION_ERROR` (ver [Manejo de errores](/backend/arquitectura/manejo-de-errores/)).
 
 Todos los `models/<dominio>/*.ts` importan ese mismo `prisma` desde `config/prisma.ts` — no hay un cliente por dominio.
 

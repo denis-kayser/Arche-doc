@@ -10,7 +10,7 @@ export default defineConfig({
 	},
 	integrations: [
 		starlight({
-			title: 'Arche API',
+			title: 'Arche',
 			description: 'Documentación técnica del backend de Arche',
 			customCss: ['./src/styles/global.css'],
 			social: [
@@ -18,23 +18,44 @@ export default defineConfig({
 			],
 			sidebar: [
 				{
-					label: 'Introducción',
-					items: [{ autogenerate: { directory: 'introduccion' } }],
+					label: 'FrontEnd',
+					items: [{ autogenerate: { directory: 'frontend' } }],
+				},
+				{
+					label: 'Backend',
+					items: [
+						{
+							label: 'Introducción',
+							items: [{ autogenerate: { directory: 'backend/introduccion' } }],
+						},
+						{
+							label: 'Arquitectura por capas',
+							items: [{ autogenerate: { directory: 'backend/arquitectura' } }],
+						},
+						{
+							// Un grupo por dominio dentro de backend/modulos/. Agregar un dominio
+							// nuevo es crear la carpeta backend/modulos/<dominio>/ - el sidebar
+							// la recoge sola, no hace falta tocar este archivo.
+							label: 'Módulos',
+							items: [{ autogenerate: { directory: 'backend/modulos' } }],
+						},
+						{
+							label: 'Referencia',
+							items: [{ autogenerate: { directory: 'backend/referencia' } }],
+						},
+					],
+				},
+				{
+					label: 'Base de datos',
+					items: [{ autogenerate: { directory: 'base-de-datos' } }],
+				},
+				{
+					label: 'Infraestructura',
+					items: [{ autogenerate: { directory: 'infraestructura' } }],
 				},
 				{
 					label: 'Arquitectura',
 					items: [{ autogenerate: { directory: 'arquitectura' } }],
-				},
-				{
-					// Un grupo por dominio dentro de modulos/. Agregar un dominio nuevo
-					// es crear la carpeta modulos/<dominio>/ - el sidebar la recoge sola,
-					// no hace falta tocar este archivo.
-					label: 'Módulos',
-					items: [{ autogenerate: { directory: 'modulos' } }],
-				},
-				{
-					label: 'Referencia',
-					items: [{ autogenerate: { directory: 'referencia' } }],
 				},
 			],
 		}),

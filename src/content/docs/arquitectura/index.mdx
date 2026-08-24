@@ -1,0 +1,61 @@
+---
+title: Arquitectura
+description: Arquitectura general del sistema Arche — cómo se relacionan frontend, backend, base de datos e infraestructura.
+---
+
+Arche tiene tres piezas de software (frontend, backend, base de datos) que corren sobre una sola instancia de infraestructura, y un flujo de despliegue que las conecta. Esta página es el mapa general; el detalle operativo de cada pieza vive en su propia sección.
+
+## Componentes y su rol
+
+| Componente | Rol | Documentación |
+|---|---|---|
+| **Frontend** | Interfaz (Next.js) que consume la API del backend | [Frontend](/frontend/) |
+| **Backend** | API REST (Express + TypeScript) con la lógica de negocio, organizada en capas Router → Controller → Service → Model, más WebSockets (Socket.IO) para sesiones en tiempo real | [Backend](/backend/) |
+| **Base de datos** | PostgreSQL, accedida por el backend vía Prisma — persiste todo el estado (usuarios, catálogos, sesiones) | [Base de datos](/base-de-datos/) |
+| **Infraestructura** | Instancia EC2 (AWS) que aloja frontend y backend, con Nginx como reverse proxy y HTTPS (Let's Encrypt) | [Infraestructura](/infraestructura/) |
+
+## Cómo se relacionan en tiempo de ejecución
+
+```
+Cliente (navegador)
+      │
+      ▼
+   Nginx (qa.arche.pe, HTTPS)
+      │
+      ├── /             → Frontend (Next.js, puerto 3000)
+      ├── /api/v1/       → Backend (Node.js, puerto 5000)
+      └── /socket.io/    → Backend (Node.js, puerto 5000, WebSocket upgrade)
+                               │
+                               ▼
+                        PostgreSQL (misma instancia EC2)
+```
+
+Frontend y backend son procesos independientes en la misma instancia; Nginx es quien decide, según el path de la URL, a cuál de los dos reenvía cada request. Ver el detalle de esta config en [Configuración de Nginx](/infraestructura/configuracion-de-nginx/).
+
+## Flujo de despliegue (CI/CD)
+
+:::caution
+Este pipeline está **en configuración** (tanto para frontend como para backend) — hoy el despliegue todavía se hace manualmente en el servidor. Este diagrama documenta el flujo objetivo.
+:::
+
+```
+Developer hace push a su rama
+      │
+      ▼
+   GitHub
+      │
+      ▼
+   GitHub Actions
+      │
+      ├── build
+      ├── tests / steps
+      └── genera artefactos
+      │
+      ▼
+   Despliegue a la instancia EC2
+      │
+      ▼
+   Nginx sirve la nueva versión (frontend y/o backend)
+```
+
+No hay todavía entornos separados (dev/staging/producción): todo el trabajo se hace contra `qa.arche.pe`, que funciona como el único ambiente activo. Tampoco hay una convención fija de ramas — cada persona crea su propia rama según la funcionalidad en la que trabaja.
