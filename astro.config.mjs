@@ -12,6 +12,12 @@ export default defineConfig({
 		starlight({
 			title: 'Arche',
 			description: 'Documentación técnica del backend de Arche',
+			favicon: '/ico.svg',
+			logo: {
+				light: './src/assets/brand/logo-light.png',
+				dark: './src/assets/brand/logo-dark.png',
+				replacesTitle: true,
+			},
 			customCss: ['./src/styles/global.css'],
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/Kayser-Peru/arche_backend' },
